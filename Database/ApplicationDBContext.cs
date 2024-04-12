@@ -44,12 +44,19 @@ namespace InsuranceAPI.Database
                 .WithOne(damagedPart => damagedPart.ExpertiseReport)
                 .HasForeignKey(damagedPart => damagedPart.ExpertiseReportID);
 
+            //relation ExpertiseReport => DamagedPart 
+            modelBuilder.Entity<ArchiveExpertiseReport>()
+                .HasMany(ExpertiseReport => ExpertiseReport.DamagedParts)
+                .WithOne(damagedPart => damagedPart.ArchiveExpertiseReport)
+                .HasForeignKey(damagedPart => damagedPart.ArchiveExpertiseReportID);
+
         }
 
         public DbSet<Insurance> Insurance { get; set; }
         public DbSet<Expert> Expert { get; set; }
         public DbSet<ServiceOrder> ServiceOrder { get; set; }
         public DbSet<ExpertiseReport> ExpertiseReport { get; set; }
+        public DbSet<ArchiveExpertiseReport> ArchiveExpertiseReport { get; set; }
         public DbSet<DamagedPart> DamagedPart { get; set; }
 
     }

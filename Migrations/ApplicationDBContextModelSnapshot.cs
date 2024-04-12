@@ -22,6 +22,89 @@ namespace InsuranceAPI.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("InsuranceAPI.ArchiveExpertiseReport", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("AtFaultFullName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("AtFaultInsuranceAddress")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("AtFaultInsuranceCode")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("AtFaultInsuranceName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("AtFaultPolicyNumber")
+                        .HasColumnType("text");
+
+                    b.Property<string>("DamagedPoint")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ImpactPoint")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Incident")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("IncidentDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("LaborCost")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("LaborDescription")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("PaintAndAdditions")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("Reduction")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("Reference")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("VehicleConditionBeforeIncident")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("VictimFullName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("VictimInsuranceAddress")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("VictimInsuranceCode")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("VictimInsuranceName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("VictimPolicyNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("ArchiveExpertiseReport");
+                });
+
             modelBuilder.Entity("InsuranceAPI.Models.DamagedPart", b =>
                 {
                     b.Property<int>("Id")
@@ -29,6 +112,9 @@ namespace InsuranceAPI.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("ArchiveExpertiseReportID")
+                        .HasColumnType("integer");
 
                     b.Property<int?>("ExpertiseReportID")
                         .HasColumnType("integer");
@@ -43,6 +129,8 @@ namespace InsuranceAPI.Migrations
                         .HasColumnType("numeric");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ArchiveExpertiseReportID");
 
                     b.HasIndex("ExpertiseReportID");
 
@@ -122,8 +210,8 @@ namespace InsuranceAPI.Migrations
                     b.Property<int>("PaintAndAdditions")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Reduction")
-                        .HasColumnType("integer");
+                    b.Property<decimal>("Reduction")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("Reference")
                         .IsRequired()
@@ -259,9 +347,15 @@ namespace InsuranceAPI.Migrations
 
             modelBuilder.Entity("InsuranceAPI.Models.DamagedPart", b =>
                 {
+                    b.HasOne("InsuranceAPI.ArchiveExpertiseReport", "ArchiveExpertiseReport")
+                        .WithMany("DamagedParts")
+                        .HasForeignKey("ArchiveExpertiseReportID");
+
                     b.HasOne("InsuranceAPI.Models.ExpertiseReport", "ExpertiseReport")
                         .WithMany("DamagedParts")
                         .HasForeignKey("ExpertiseReportID");
+
+                    b.Navigation("ArchiveExpertiseReport");
 
                     b.Navigation("ExpertiseReport");
                 });
@@ -298,6 +392,11 @@ namespace InsuranceAPI.Migrations
                     b.Navigation("AtFaultInsurance");
 
                     b.Navigation("VictimInsurance");
+                });
+
+            modelBuilder.Entity("InsuranceAPI.ArchiveExpertiseReport", b =>
+                {
+                    b.Navigation("DamagedParts");
                 });
 
             modelBuilder.Entity("InsuranceAPI.Models.Expert", b =>

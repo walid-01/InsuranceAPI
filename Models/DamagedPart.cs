@@ -9,5 +9,8 @@ namespace InsuranceAPI.Models
         public int? ExpertiseReportID { get; set; }
         public ExpertiseReport? ExpertiseReport { get; set; }
 
+        public int? ArchiveExpertiseReportID { get; set; }
+        public ArchiveExpertiseReport? ArchiveExpertiseReport { get; set; }
+
     }
 }

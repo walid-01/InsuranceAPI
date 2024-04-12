@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Walid\\Downloads\\InsuranceAPI\\InsuranceAPI.csproj": {}
+    "C:\\Users\\ch\\Desktop\\InsuranceAPI-1\\InsuranceAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Walid\\Downloads\\InsuranceAPI\\InsuranceAPI.csproj": {
+    "C:\\Users\\ch\\Desktop\\InsuranceAPI-1\\InsuranceAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Walid\\Downloads\\InsuranceAPI\\InsuranceAPI.csproj",
+        "projectUniqueName": "C:\\Users\\ch\\Desktop\\InsuranceAPI-1\\InsuranceAPI.csproj",
         "projectName": "InsuranceAPI",
-        "projectPath": "C:\\Users\\Walid\\Downloads\\InsuranceAPI\\InsuranceAPI.csproj",
-        "packagesPath": "C:\\Users\\Walid\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Walid\\Downloads\\InsuranceAPI\\obj\\",
+        "projectPath": "C:\\Users\\ch\\Desktop\\InsuranceAPI-1\\InsuranceAPI.csproj",
+        "packagesPath": "C:\\Users\\ch\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ch\\Desktop\\InsuranceAPI-1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Walid\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ch\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -109,7 +109,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.203/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.201/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

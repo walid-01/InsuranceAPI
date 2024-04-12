@@ -13,6 +13,38 @@ namespace InsuranceAPI.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "ArchiveExpertiseReport",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Reference = table.Column<string>(type: "text", nullable: false),
+                    Incident = table.Column<string>(type: "text", nullable: false),
+                    IncidentDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    VehicleConditionBeforeIncident = table.Column<string>(type: "text", nullable: false),
+                    ImpactPoint = table.Column<string>(type: "text", nullable: false),
+                    DamagedPoint = table.Column<string>(type: "text", nullable: false),
+                    PaintAndAdditions = table.Column<int>(type: "integer", nullable: false),
+                    LaborDescription = table.Column<string>(type: "text", nullable: false),
+                    LaborCost = table.Column<decimal>(type: "numeric", nullable: false),
+                    Reduction = table.Column<decimal>(type: "numeric", nullable: false),
+                    VictimFullName = table.Column<string>(type: "text", nullable: false),
+                    VictimPolicyNumber = table.Column<string>(type: "text", nullable: false),
+                    VictimInsuranceName = table.Column<string>(type: "text", nullable: false),
+                    VictimInsuranceCode = table.Column<int>(type: "integer", nullable: false),
+                    VictimInsuranceAddress = table.Column<string>(type: "text", nullable: false),
+                    AtFaultFullName = table.Column<string>(type: "text", nullable: true),
+                    AtFaultPolicyNumber = table.Column<string>(type: "text", nullable: true),
+                    AtFaultInsuranceName = table.Column<string>(type: "text", nullable: true),
+                    AtFaultInsuranceCode = table.Column<int>(type: "integer", nullable: true),
+                    AtFaultInsuranceAddress = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ArchiveExpertiseReport", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Expert",
                 columns: table => new
                 {
@@ -111,7 +143,7 @@ namespace InsuranceAPI.Migrations
                     LaborDescription = table.Column<string>(type: "text", nullable: false),
                     LaborCost = table.Column<decimal>(type: "numeric", nullable: false),
                     ServiceOrderId = table.Column<int>(type: "integer", nullable: true),
-                    Reduction = table.Column<int>(type: "integer", nullable: false)
+                    Reduction = table.Column<decimal>(type: "numeric", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -132,17 +164,28 @@ namespace InsuranceAPI.Migrations
                     PartName = table.Column<string>(type: "text", nullable: true),
                     PartPrice = table.Column<decimal>(type: "numeric", nullable: false),
                     IsRepairable = table.Column<bool>(type: "boolean", nullable: false),
-                    ExpertiseReportID = table.Column<int>(type: "integer", nullable: true)
+                    ExpertiseReportID = table.Column<int>(type: "integer", nullable: true),
+                    ArchiveExpertiseReportID = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DamagedPart", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DamagedPart_ArchiveExpertiseReport_ArchiveExpertiseReportID",
+                        column: x => x.ArchiveExpertiseReportID,
+                        principalTable: "ArchiveExpertiseReport",
+                        principalColumn: "ID");
                     table.ForeignKey(
                         name: "FK_DamagedPart_ExpertiseReport_ExpertiseReportID",
                         column: x => x.ExpertiseReportID,
                         principalTable: "ExpertiseReport",
                         principalColumn: "Id");
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DamagedPart_ArchiveExpertiseReportID",
+                table: "DamagedPart",
+                column: "ArchiveExpertiseReportID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DamagedPart_ExpertiseReportID",
@@ -176,6 +219,9 @@ namespace InsuranceAPI.Migrations
         {
             migrationBuilder.DropTable(
                 name: "DamagedPart");
+
+            migrationBuilder.DropTable(
+                name: "ArchiveExpertiseReport");
 
             migrationBuilder.DropTable(
                 name: "ExpertiseReport");

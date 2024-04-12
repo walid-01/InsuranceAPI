@@ -19,6 +19,5 @@ namespace InsuranceAPI.Models
         public ServiceOrder? ServiceOrder { get; set; }
         public List<DamagedPart> DamagedParts { get; set; } = new List<DamagedPart>();
         public decimal Reduction { get; set; }
-
     }
 }
