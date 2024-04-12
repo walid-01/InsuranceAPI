@@ -35,7 +35,6 @@ namespace InsuranceAPI.Controller
                 {
                     var serviceOrderListResponses = await _context.ServiceOrder
                                     .Where(ServiceOrder => ServiceOrder.VictimInsuranceID == selectedInsurance.Id)
-                                    .OrderByDescending(i => i.Id)
                                     .ToListAsync();
 
                     foreach (var serviceOrderResponse in serviceOrderListResponses)
