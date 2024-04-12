@@ -59,7 +59,7 @@ namespace InsuranceAPI.Controller
                     }
 
 
-                    return Ok(serviceOrderListResponses.Select(ServiceOrder => ServiceOrder.ToServiceOrderResponseDto()));
+                    return Ok(serviceOrderListResponses.Select(ServiceOrder => ServiceOrder.ToServiceOrderResponseDto()).Reverse());
                 }
 
                 //get expert if from token
@@ -105,6 +105,70 @@ namespace InsuranceAPI.Controller
         }
 
 
+        [HttpGet]
+        [Route("/ServiceOrderById")]
+        public async Task<IActionResult> GetServicesOrderById([FromHeader] String userToken, [FromHeader] int id)
+        {
+            try
+            {
+                //get Insurance id from token
+                String userName = Token.DecodeToken(userToken, _configuration["AppSettings:Token"]);
+                Insurance? selectedInsurance = await _context.Insurance.FirstOrDefaultAsync(i => i.UserName == userName);
+                if (selectedInsurance is not null)
+                {
+                    ServiceOrder? serviceOrderResponses = await _context.ServiceOrder
+                                    .Include(so => so.AssociatedExpert)
+                                    .Include(so => so.VictimInsurance)
+                                    .Include(so => so.AtFaultInsurance)
+                                    .Include(so => so.ExpertiseReport)
+                                    .ThenInclude(er => er.DamagedParts)
+                                    .FirstOrDefaultAsync(ServiceOrder => ServiceOrder.VictimInsuranceID == selectedInsurance.Id
+                                     && ServiceOrder.Id == id);
+
+                    if (serviceOrderResponses is null)
+                    {
+                        return NotFound("Order not found.");
+                    }
+
+
+
+
+                    return Ok(serviceOrderResponses?.ToServiceOrderResponseDto());
+                }
+
+                //get expert if from token
+                Expert? selectedExpert = await _context.Expert.FirstOrDefaultAsync(i => i.UserName == userName);
+                if (selectedExpert is not null)
+                {
+                    ServiceOrder? serviceOrderResponses = await _context.ServiceOrder
+                                    .Include(so => so.AssociatedExpert)
+                                    .Include(so => so.VictimInsurance)
+                                    .Include(so => so.AtFaultInsurance)
+                                    .Include(so => so.ExpertiseReport)
+                                    .ThenInclude(er => er.DamagedParts)
+                                    .FirstOrDefaultAsync(ServiceOrder => ServiceOrder.VictimInsuranceID == selectedExpert.Id
+                                     && ServiceOrder.Id == id);
+
+
+                    if (serviceOrderResponses is null)
+                    {
+                        return NotFound("Order not found.");
+                    }
+
+
+                    return Ok(serviceOrderResponses?.ToServiceOrderResponseDto());
+                }
+
+                return Unauthorized("Invalid token.");
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, $"Internal server error.");
+            }
+        }
+
+
         [HttpPost]
         [Route("/CreateServiceOrder")]
         public async Task<IActionResult> CreateServiceOrder([FromBody] ServiceOrderCreateRequest serviceOrderRequest)
@@ -136,7 +200,7 @@ namespace InsuranceAPI.Controller
                 _context.ServiceOrder.Add(serviceOrderRequest.FromCreateServiceOrderDto(selectedInsurance.Id));
                 _context.SaveChanges();
 
-                return Ok("Service Order added");
+                return Created();
 
             }
             catch (Exception)
@@ -191,7 +255,7 @@ namespace InsuranceAPI.Controller
                 {
                     return Unauthorized("User can not update this service order.");
                 }
-                
+
                 // update the service order it to db
                 dbServiceOrder.VictimFullName = serviceOrderRequest.VictimFullName;
                 dbServiceOrder.VictimPolicyNumber = serviceOrderRequest.VictimPolicyNumber;

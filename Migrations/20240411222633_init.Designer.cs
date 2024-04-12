@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace InsuranceAPI.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20240319215023_init")]
+    [Migration("20240411222633_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -36,14 +36,14 @@ namespace InsuranceAPI.Migrations
                     b.Property<int?>("ExpertiseReportID")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("IsRepairable")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("PartName")
                         .HasColumnType("text");
 
                     b.Property<decimal>("PartPrice")
                         .HasColumnType("numeric");
-
-                    b.Property<int>("Reduction")
-                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -123,6 +123,9 @@ namespace InsuranceAPI.Migrations
                         .HasColumnType("text");
 
                     b.Property<int>("PaintAndAdditions")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Reduction")
                         .HasColumnType("integer");
 
                     b.Property<string>("Reference")

@@ -20,16 +20,17 @@ namespace InsuranceAPI.Mappers
                 LaborDescription = expertiseReportRequest.LaborDescription,
                 LaborCost = expertiseReportRequest.LaborCost,
                 ServiceOrderId = expertiseReportRequest.ServiceOrderId,
+                Reduction = expertiseReportRequest.Reduction
             };
         }
 
         public static ExpertiseReportResponse ToExpertisReportResponseDto(this ExpertiseReport expertiseReportModel)
         {
 
-            // if (expertiseReportModel is null)
-            // {
-            //     return null;
-            // }
+            if (expertiseReportModel is null)
+            {
+                return null;
+            }
 
             List<DamagePartResponse> damagePartResponses = new List<DamagePartResponse>();
             foreach (DamagedPart damagedPart in expertiseReportModel.DamagedParts)
@@ -40,20 +41,16 @@ namespace InsuranceAPI.Mappers
             decimal damagePartTotalCostBeforeReduction = 0;
             foreach (DamagedPart damagedPart in expertiseReportModel.DamagedParts)
             {
-                damagePartTotalCostBeforeReduction+=damagedPart.PartPrice;
+                damagePartTotalCostBeforeReduction += damagedPart.PartPrice;
             }
 
-            decimal damagePartTotalPercentage = 0;
-            foreach (DamagedPart damagedPart in expertiseReportModel.DamagedParts)
-            {
-                damagePartTotalPercentage+=damagedPart.Reduction;
-            }
 
-            decimal damagePartTotalReductionCost= damagePartTotalCostBeforeReduction*(damagePartTotalPercentage/100);
+
+            decimal damagePartTotalReductionCost = damagePartTotalCostBeforeReduction * (expertiseReportModel.Reduction / 100);
 
             decimal damagePartTotalCostAfterReduction = damagePartTotalCostBeforeReduction - damagePartTotalReductionCost;
 
-            decimal total = damagePartTotalCostAfterReduction +expertiseReportModel.LaborCost+expertiseReportModel.PaintAndAdditions;
+            decimal total = damagePartTotalCostAfterReduction + expertiseReportModel.LaborCost + expertiseReportModel.PaintAndAdditions;
 
             return new ExpertiseReportResponse
             {
@@ -70,10 +67,11 @@ namespace InsuranceAPI.Mappers
                 LaborCost = expertiseReportModel.LaborCost,
                 DamagePartTotalCostBeforeReduction = damagePartTotalCostBeforeReduction,
                 DamagePartTotalCostAfterReduction = damagePartTotalCostAfterReduction,
-                DamagePartTotalPercentage = damagePartTotalPercentage,
                 DamagePartTotalReductionCost = damagePartTotalReductionCost,
                 Total = total,
-                DamagedParts = damagePartResponses
+                DamagedParts = damagePartResponses,
+                Reduction = expertiseReportModel.Reduction,
+
             };
         }
     }

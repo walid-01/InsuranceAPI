@@ -14,8 +14,9 @@ namespace InsuranceAPI.Dtos.ExpertiseReportDtos
         public required String DamagedPoint { get; set; }
         public int PaintAndAdditions { get; set; }
         public required String LaborDescription { get; set; }
-        public Decimal LaborCost { get; set; }
+        public decimal LaborCost { get; set; }
         public int? ServiceOrderId { get; set; }
-        public List<DamagedPartCreateRequest> DamagedParts { get; set; }= new List<DamagedPartCreateRequest>();
+        public int Reduction { get; set; }
+        public List<DamagedPartCreateRequest> DamagedParts { get; set; } = new List<DamagedPartCreateRequest>();
     }
 }

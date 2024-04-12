@@ -18,6 +18,18 @@ namespace InsuranceAPI.Mappers
             };
         }
 
+        public static ExpertGetResponse ToGetResponseExpertDto(this Expert expertModel, String token)
+        {
+            return new ExpertGetResponse
+            {
+                FirstName = expertModel.FirstName,
+                LastName = expertModel.LastName,
+                PhoneNumber = expertModel.PhoneNumber,
+                Address = expertModel.Address,
+                City = expertModel.City
+            };
+        }
+
 
         public static Expert FromCreateRequestDto(this ExpertCreateRequest expertRequest)
         {

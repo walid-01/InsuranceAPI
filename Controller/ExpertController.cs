@@ -29,7 +29,7 @@ namespace InsuranceAPI.Controller
 
 
         [HttpGet]
-        [Route("/Expert")]
+        [Route("/expert")]
         public async Task<IActionResult> GetExpertByToken([FromHeader] String token)
         {
             String? reqUserName = Token.DecodeToken(token, _configuration["AppSettings:Token"]);
@@ -47,25 +47,18 @@ namespace InsuranceAPI.Controller
             }
 
             //login successfully
-            return Ok(dbExpert.ToResponseExpertDto(token));
+            return Ok(dbExpert.ToGetResponseExpertDto(token));
         }
 
 
 
         [HttpGet]
-        [Route("/Expert/City/{city}")]
-        public async Task<IActionResult> GetExpertByCity([FromRoute] City city)
+        [Route("/Experts")]
+        public async Task<IActionResult> GetExpertByCity()
         {
-            if (!ModelState.IsValid)
-            {
-                // selected city not found
-                return NotFound("Invalid city");
-            }
-
             try
             {
                 var expertListResponses = await _context.Expert
-                                   .Where(expert => expert.City == city)
                                    .Select(expert => expert.ToExpertListResponseDto())
                                    .ToListAsync();
 
@@ -99,7 +92,7 @@ namespace InsuranceAPI.Controller
                     //user name not found
                     return Unauthorized("Bad user Information.");
                 }
-                
+
 
                 //get token user
                 if (BCrypt.Net.BCrypt.Verify(expertRequest.Password, dbExpert.Password))
@@ -109,7 +102,7 @@ namespace InsuranceAPI.Controller
                     return Ok(expertResponseDto);
                 }
                 else
-                {   
+                {
                     //wrang password
                     return Unauthorized("Bad user Information.");
                 }
@@ -146,7 +139,7 @@ namespace InsuranceAPI.Controller
                 if (dbInsurance is not null)
                 {
                     // user name used by insurance
-                    return Conflict("User name can not be used.");
+                    return Conflict("Username can not be used.");
                 }
 
 
@@ -165,13 +158,13 @@ namespace InsuranceAPI.Controller
                 else
                 {
                     //user name used by expert
-                    return Conflict("User Name can not be used.");
+                    return Conflict("UserName can not be used.");
                 }
 
 
             }
             catch (Exception)
-            {   
+            {
                 //server error
                 return StatusCode(500, $"Internal server error.");
             }
@@ -186,7 +179,7 @@ namespace InsuranceAPI.Controller
         {
             // check request Structure
             if (!ModelState.IsValid)
-            {   
+            {
 
                 return BadRequest("Invalid Structure");
             }
@@ -215,7 +208,10 @@ namespace InsuranceAPI.Controller
                     dbExpert.FirstName = expertRequest.FirstName;
                     dbExpert.LastName = expertRequest.LastName;
                     dbExpert.PhoneNumber = expertRequest.PhoneNumber;
-                    dbExpert.Password = BCrypt.Net.BCrypt.HashPassword(expertRequest.NewPassword);
+                    if (expertRequest.NewPassword is not null)
+                    {
+                        dbExpert.Password = BCrypt.Net.BCrypt.HashPassword(expertRequest.NewPassword);
+                    }
                     await _context.SaveChangesAsync();
 
                     return Ok("Expert Updated.");

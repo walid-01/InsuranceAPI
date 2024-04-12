@@ -18,6 +18,18 @@ namespace InsuranceAPI.Mappers
         }
 
 
+        public static InsuranceGetResponse ToGetResponseInsuranceDto(this Insurance insuranceModel, String token)
+        {
+            return new InsuranceGetResponse
+            {
+                Name = insuranceModel.Name,
+                AgencyCode = insuranceModel.AgencyCode,
+                Address = insuranceModel.Address,
+                City = insuranceModel.City,
+            };
+        }
+
+
         public static Insurance FromCreateRequestDto(this InsuranceCreateRequestDto? insuranceRequest)
         {
             return new Insurance
@@ -38,8 +50,11 @@ namespace InsuranceAPI.Mappers
             return new InsuranceListResponse
             {
                 Id = insurance.Id,
-                Name= insurance.Name,
-                AgencyCode = insurance.AgencyCode
+                Name = insurance.Name,
+                AgencyCode = insurance.AgencyCode,
+                Address = insurance.Address,
+                City = insurance.City.ToString()
+
             };
         }
 
@@ -49,8 +64,10 @@ namespace InsuranceAPI.Mappers
                 return null;
             return new InsuranceJoinResponse
             {
-                Name= insurance.Name,
-                AgencyCode = insurance.AgencyCode
+                Name = insurance.Name,
+                AgencyCode = insurance.AgencyCode,
+                Address = insurance.Address,
+                City = insurance.City
             };
         }
 

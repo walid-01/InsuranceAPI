@@ -7,7 +7,7 @@ namespace InsuranceAPI.Dtos.ExpertiseReportDtos
     {
         public int Id { get; set; }
         public required String Reference { get; set; }
-        public required ExpertiseReportState State { get; set; }= ExpertiseReportState.Waiting_Appeal;
+        public required ExpertiseReportState State { get; set; }
         public required String Incident { get; set; }
         public DateTime IncidentDate { get; set; }
         public required String VehicleConditionBeforeIncident { get; set; }
@@ -15,13 +15,12 @@ namespace InsuranceAPI.Dtos.ExpertiseReportDtos
         public required String DamagedPoint { get; set; }
         public int PaintAndAdditions { get; set; }
         public required String LaborDescription { get; set; }
-        public Decimal LaborCost { get; set; }
+        public decimal LaborCost { get; set; }
         public required decimal DamagePartTotalCostBeforeReduction { get; set; }
-        public required decimal DamagePartTotalPercentage { get; set; }
+        public required decimal Reduction { get; set; }
         public required decimal DamagePartTotalReductionCost { get; set; }
         public required decimal DamagePartTotalCostAfterReduction { get; set; }
         public required decimal Total { get; set; }
-
-        public List<DamagePartResponse> DamagedParts { get; set; }= new List<DamagePartResponse>();
+        public List<DamagePartResponse> DamagedParts { get; set; } = new List<DamagePartResponse>();
     }
 }

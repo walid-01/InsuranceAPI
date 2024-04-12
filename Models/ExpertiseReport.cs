@@ -12,11 +12,13 @@ namespace InsuranceAPI.Models
         public required String ImpactPoint { get; set; }
         public required String DamagedPoint { get; set; }
         public int PaintAndAdditions { get; set; }
-        public ExpertiseReportState State { get; set; }= ExpertiseReportState.Waiting;
+        public ExpertiseReportState State { get; set; } = ExpertiseReportState.Waiting;
         public required String LaborDescription { get; set; }
-        public Decimal LaborCost { get; set; }
+        public decimal LaborCost { get; set; }
         public int? ServiceOrderId { get; set; }
         public ServiceOrder? ServiceOrder { get; set; }
-        public List<DamagedPart> DamagedParts { get; set; }= new List<DamagedPart>();
+        public List<DamagedPart> DamagedParts { get; set; } = new List<DamagedPart>();
+        public decimal Reduction { get; set; }
+
     }
 }

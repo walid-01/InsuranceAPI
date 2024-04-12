@@ -10,10 +10,11 @@ namespace InsuranceAPI.Tools
     {
         public static string CreateToken(Insurance insurance, string tokenKey)
         {
-            List<Claim> claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Name, insurance.UserName)
-        };
+            List<Claim> claims =
+            [
+            new(ClaimTypes.Name, insurance.UserName),
+            new("role", "insurance"),
+        ];
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenKey));
             var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha512);
@@ -31,7 +32,8 @@ namespace InsuranceAPI.Tools
         {
             List<Claim> claims = new List<Claim>
         {
-            new Claim(ClaimTypes.Name, expert.UserName)
+            new Claim(ClaimTypes.Name, expert.UserName),
+            new Claim("role", "expert")
         };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenKey));

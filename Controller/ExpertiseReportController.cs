@@ -93,7 +93,7 @@ namespace InsuranceAPI.Controller
             if (dbServiceOrder is null)
             {
                 //service order not found
-                return StatusCode(500,"Invalid Service Order.");
+                return StatusCode(500, "Invalid Service Order.");
             }
 
             String insuranceUserName = Token.DecodeToken(expertiseReportRequest.InsuranceToken, _configuration["AppSettings:Token"]);
@@ -113,6 +113,10 @@ namespace InsuranceAPI.Controller
 
             try
             {
+                if (dbExpertiseReport.State != Models.Enums.ExpertiseReportState.Waiting)
+                {
+                    return Unauthorized("Expertise report already accepted.");
+                }
                 dbExpertiseReport.State = Models.Enums.ExpertiseReportState.Accepted;
                 await _context.SaveChangesAsync();
 
@@ -130,7 +134,7 @@ namespace InsuranceAPI.Controller
         [Route("/Reject")]
         public async Task<IActionResult> RejectExpertiseReport([FromBody] ExpertiseReportAcceptRequest expertiseReportRequest)
         {
-           if (!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest("Bad request Model Structure.");
             }
@@ -146,7 +150,7 @@ namespace InsuranceAPI.Controller
             if (dbServiceOrder is null)
             {
                 //service order not found
-                return StatusCode(500,"Invalid Service Order.");
+                return StatusCode(500, "Invalid Service Order.");
             }
 
             String insuranceUserName = Token.DecodeToken(expertiseReportRequest.InsuranceToken, _configuration["AppSettings:Token"]);
@@ -166,6 +170,11 @@ namespace InsuranceAPI.Controller
 
             try
             {
+                if (dbExpertiseReport.State != Models.Enums.ExpertiseReportState.Waiting)
+                {
+                    return Unauthorized("Expertise report already accepted.");
+                }
+
                 dbExpertiseReport.State = Models.Enums.ExpertiseReportState.Waiting_Appeal;
                 await _context.SaveChangesAsync();
 

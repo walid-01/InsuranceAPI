@@ -11,17 +11,17 @@ namespace InsuranceAPI.Mappers
             {
                 PartName = damagedPartRequest.PartName,
                 PartPrice = damagedPartRequest.PartPrice,
-                Reduction = damagedPartRequest.Reduction,
-                ExpertiseReportID = damagedPartRequest.ExpertiseReportID
+                IsRepairable = damagedPartRequest.IsRepairable
             };
         }
 
-        public static DamagePartResponse ToDamagedPartResponse (this DamagedPart damagedPart){
+        public static DamagePartResponse ToDamagedPartResponse(this DamagedPart damagedPart)
+        {
             return new DamagePartResponse
             {
                 PartName = damagedPart.PartName,
                 PartPrice = damagedPart.PartPrice,
-                Reduction = damagedPart.Reduction
+                IsRepairable = damagedPart.IsRepairable
             };
         }
     }

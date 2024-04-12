@@ -234,3 +234,4 @@ C:\Users\Walid\Downloads\InsuranceAPI\obj\Debug\net8.0\refint\InsuranceAPI.dll
 C:\Users\Walid\Downloads\InsuranceAPI\obj\Debug\net8.0\InsuranceAPI.pdb
 C:\Users\Walid\Downloads\InsuranceAPI\obj\Debug\net8.0\InsuranceAPI.genruntimeconfig.cache
 C:\Users\Walid\Downloads\InsuranceAPI\obj\Debug\net8.0\ref\InsuranceAPI.dll
+C:\Users\Walid\Downloads\InsuranceAPI\obj\Debug\net8.0\InsuranceAPI.sourcelink.json

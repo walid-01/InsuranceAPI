@@ -33,14 +33,14 @@ namespace InsuranceAPI.Migrations
                     b.Property<int?>("ExpertiseReportID")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("IsRepairable")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("PartName")
                         .HasColumnType("text");
 
                     b.Property<decimal>("PartPrice")
                         .HasColumnType("numeric");
-
-                    b.Property<int>("Reduction")
-                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -120,6 +120,9 @@ namespace InsuranceAPI.Migrations
                         .HasColumnType("text");
 
                     b.Property<int>("PaintAndAdditions")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Reduction")
                         .HasColumnType("integer");
 
                     b.Property<string>("Reference")

@@ -110,7 +110,8 @@ namespace InsuranceAPI.Migrations
                     State = table.Column<int>(type: "integer", nullable: false),
                     LaborDescription = table.Column<string>(type: "text", nullable: false),
                     LaborCost = table.Column<decimal>(type: "numeric", nullable: false),
-                    ServiceOrderId = table.Column<int>(type: "integer", nullable: true)
+                    ServiceOrderId = table.Column<int>(type: "integer", nullable: true),
+                    Reduction = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -130,7 +131,7 @@ namespace InsuranceAPI.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     PartName = table.Column<string>(type: "text", nullable: true),
                     PartPrice = table.Column<decimal>(type: "numeric", nullable: false),
-                    Reduction = table.Column<int>(type: "integer", nullable: false),
+                    IsRepairable = table.Column<bool>(type: "boolean", nullable: false),
                     ExpertiseReportID = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>

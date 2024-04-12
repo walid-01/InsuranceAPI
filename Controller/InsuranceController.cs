@@ -27,7 +27,7 @@ namespace cars.Controller
 
 
         [HttpGet]
-        [Route("/Insurance")]
+        [Route("/insurance")]
         public async Task<IActionResult> GetInsuranceByToken([FromHeader] String token)
         {
             String? reqUserName = Token.DecodeToken(token, _configuration["AppSettings:Token"]);
@@ -44,7 +44,7 @@ namespace cars.Controller
                 return Unauthorized("Invalid Token");
             }
 
-            return Ok(dbInsurance.ToResponseInsuranceDto(token));
+            return Ok(dbInsurance.ToGetResponseInsuranceDto(token));
         }
 
         [HttpGet]
@@ -148,7 +148,7 @@ namespace cars.Controller
                     _context.Insurance.Add(insuranceModel);
                     _context.SaveChanges();
 
-                    return Created();
+                    return StatusCode(201, "Insurance created.");
                 }
                 //not allowed to use user name
                 else
@@ -190,7 +190,7 @@ namespace cars.Controller
                 //user name not found in insurance db
                 return NotFound("Bad user information.");
             }
-            
+
             //verify if new username used by other user
             Insurance? existInsurance = await _context.Insurance.FirstOrDefaultAsync(i => i.UserName == reqUserName);
             if (dbInsurance is null || dbInsurance.Id == existInsurance.Id)
@@ -203,7 +203,10 @@ namespace cars.Controller
                     dbInsurance.AgencyCode = insuranceRequest.AgencyCode;
                     dbInsurance.City = insuranceRequest.City;
                     dbInsurance.Name = insuranceRequest.Name;
-                    dbInsurance.Password = BCrypt.Net.BCrypt.HashPassword(insuranceRequest.NewPassword);
+                    if (insuranceRequest.NewPassword is not null)
+                    {
+                        dbInsurance.Password = BCrypt.Net.BCrypt.HashPassword(insuranceRequest.NewPassword);
+                    }
 
                     await _context.SaveChangesAsync();
 
