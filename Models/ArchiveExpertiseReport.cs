@@ -6,6 +6,7 @@ namespace InsuranceAPI
     public class ArchiveExpertiseReport
     {
         public int ID { get; set; }
+        public required String expartName { get; set; }
         public  String Reference { get; set; }
         public  String Incident { get; set; }
         public DateTime IncidentDate { get; set; }

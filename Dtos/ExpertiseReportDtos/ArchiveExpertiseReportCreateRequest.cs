@@ -5,6 +5,7 @@ namespace InsuranceAPI.Dtos.ExpertiseReportDtos
 {
     public class ArchiveExpertiseReportCreateRequest
     {
+        public required String token { get; set; }
         public required String Reference { get; set; }
         public required String Incident { get; set; }
         public DateTime IncidentDate { get; set; }

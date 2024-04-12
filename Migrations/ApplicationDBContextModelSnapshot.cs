@@ -100,6 +100,10 @@ namespace InsuranceAPI.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("expartName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("ID");
 
                     b.ToTable("ArchiveExpertiseReport");

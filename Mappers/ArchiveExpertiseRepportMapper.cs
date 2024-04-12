@@ -7,10 +7,11 @@ namespace InsuranceAPI.Mappers
 {
     public static class ArchiveExpertiseRepportMapper
     {
-        public static ArchiveExpertiseReport FromArchiveExpertiseReportCreateRequestDto(this ArchiveExpertiseReportCreateRequest expertiseReportRequest)
+        public static ArchiveExpertiseReport FromArchiveExpertiseReportCreateRequestDto(this ArchiveExpertiseReportCreateRequest expertiseReportRequest, string expertName)
         {
             return new ArchiveExpertiseReport
             {
+                expartName = expertName,
                 Reference = expertiseReportRequest.Reference,
                 Incident = expertiseReportRequest.Incident,
                 IncidentDate = expertiseReportRequest.IncidentDate,
@@ -43,6 +44,7 @@ namespace InsuranceAPI.Mappers
             {
                 return new ArchiveExpertiseReport
                 {
+                    
                     Reference = expertiseReportRequest.Reference,
                     Incident = expertiseReportRequest.Incident,
                     IncidentDate = expertiseReportRequest.IncidentDate,
@@ -60,7 +62,8 @@ namespace InsuranceAPI.Mappers
                     AtFaultFullName = expertiseReportRequest.ServiceOrder.AtFaultFullName,
                     AtFaultPolicyNumber = expertiseReportRequest.ServiceOrder.AtFaultPolicyNumber,
                     VictimInsuranceCode = expertiseReportRequest.ServiceOrder.VictimInsurance.AgencyCode,
-                    DamagedParts = expertiseReportRequest.DamagedParts.Select(d=> d.ToDamagedPartResponse()).ToList()
+                    DamagedParts = expertiseReportRequest.DamagedParts,
+                    expartName =  expertiseReportRequest.ServiceOrder.AssociatedExpert.FirstName+"."+expertiseReportRequest.ServiceOrder.AssociatedExpert
                 };
             }
             return new ArchiveExpertiseReport
@@ -85,7 +88,8 @@ namespace InsuranceAPI.Mappers
                 VictimInsuranceCode = expertiseReportRequest.ServiceOrder.VictimInsurance.AgencyCode,
                 AtFaultInsuranceCode = expertiseReportRequest.ServiceOrder.AtFaultInsurance.AgencyCode,
                 AtFaultInsuranceAddress = expertiseReportRequest.ServiceOrder.AtFaultInsurance.Address,
-                DamagedParts = expertiseReportRequest.DamagedParts.Select(d=> d.ToDamagedPartResponse()).ToList()
+                DamagedParts = expertiseReportRequest.DamagedParts,
+                expartName =  expertiseReportRequest.ServiceOrder.AssociatedExpert.FirstName+"."+expertiseReportRequest.ServiceOrder.AssociatedExpert
             };
         }
 
@@ -120,6 +124,7 @@ namespace InsuranceAPI.Mappers
 
             return new ArchiveExpertiseReportResponse
             {
+                expertName = expertiseReportModel.expartName,
                 Id = expertiseReportModel.ID,
                 Reference = expertiseReportModel.Reference,
                 Incident = expertiseReportModel.Incident,

@@ -18,6 +18,7 @@ namespace InsuranceAPI.Migrations
                 {
                     ID = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    expartName = table.Column<string>(type: "text", nullable: false),
                     Reference = table.Column<string>(type: "text", nullable: false),
                     Incident = table.Column<string>(type: "text", nullable: false),
                     IncidentDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),

@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace InsuranceAPI.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20240412160520_init")]
+    [Migration("20240412164953_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -100,6 +100,10 @@ namespace InsuranceAPI.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("VictimPolicyNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("expartName")
                         .IsRequired()
                         .HasColumnType("text");
 

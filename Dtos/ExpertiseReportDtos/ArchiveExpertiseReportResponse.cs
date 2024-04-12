@@ -6,6 +6,7 @@ namespace InsuranceAPI.Dtos.ExpertiseReportDtos
     public class ArchiveExpertiseReportResponse
     {
         public int Id { get; set; }
+        public required String expertName { get; set; }
         public required String Reference { get; set; }
         public required String Incident { get; set; }
         public DateTime IncidentDate { get; set; }

@@ -32,14 +32,20 @@ namespace InsuranceAPI.Controller
                 return BadRequest("Bad request Model Structure.");
             }
 
-            if (expertiseReportRequest == null)
+
+            String userName = Token.DecodeToken(expertiseReportRequest.token, _configuration["AppSettings:Token"]);
+            var expert = await _context.Expert.FirstOrDefaultAsync(e => e.UserName == userName);
+
+            if (expert is null)
             {
-                return BadRequest("object is null");
+                return Unauthorized("token not valid.");
             }
 
             try
             {
-                ArchiveExpertiseReport requestExpertiseReport = expertiseReportRequest.FromArchiveExpertiseReportCreateRequestDto();
+                ArchiveExpertiseReport requestExpertiseReport = expertiseReportRequest.FromArchiveExpertiseReportCreateRequestDto(
+                    expert.FirstName+"."+expert.LastName
+                );
                 _context.ArchiveExpertiseReport.Add(requestExpertiseReport);
                 await _context.SaveChangesAsync();
 
@@ -88,27 +94,51 @@ namespace InsuranceAPI.Controller
                 return StatusCode(500, "Internal server error");
             }
         }
+
         [HttpGet]
-        [Route("test")]
-        public async Task<IActionResult> test(int id)
+        [Route("id")]
+        public async Task<IActionResult> GetByID(int id)
         {
             try
             {
-                ServiceOrder? serviceOrderResponses = await _context.ServiceOrder
-                                                   .Include(so => so.AssociatedExpert)
-                                                   .Include(so => so.VictimInsurance)
-                                                   .Include(so => so.AtFaultInsurance)
-                                                   .Include(so => so.ExpertiseReport)
-                                                   .ThenInclude(er => er.DamagedParts)
-                                                   .FirstOrDefaultAsync(e=> e.ExpertiseReport.Id== id);
+                var expertise = await _context.ArchiveExpertiseReport.
+                Include(e => e.DamagedParts).
+                FirstOrDefaultAsync(expertise => expertise.ID == id);
 
-                return Ok(serviceOrderResponses.ExpertiseReport.FromExpertiseReportCreateToArchiveRequestDto());
+                if (expertise == null)
+                {
+                    return NotFound("Not exist.");
+                }
+
+                return Ok(expertise.ToArchiveExpertisReportResponseDto());
             }
             catch (Exception ex)
             {
                 return StatusCode(500, ex);
             }
         }
+
+        // [HttpGet]
+        // [Route("test")]
+        // public async Task<IActionResult> test(int id)
+        // {
+        //     try
+        //     {
+        //         ServiceOrder? serviceOrderResponses = await _context.ServiceOrder
+        //                                            .Include(so => so.AssociatedExpert)
+        //                                            .Include(so => so.VictimInsurance)
+        //                                            .Include(so => so.AtFaultInsurance)
+        //                                            .Include(so => so.ExpertiseReport)
+        //                                            .ThenInclude(er => er.DamagedParts)
+        //                                            .FirstOrDefaultAsync(e=> e.ExpertiseReport.Id== id);
+
+        //         return Ok(serviceOrderResponses.ExpertiseReport.FromExpertiseReportCreateToArchiveRequestDto());
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         return StatusCode(500, ex);
+        //     }
+        // }
 
     }
 }
