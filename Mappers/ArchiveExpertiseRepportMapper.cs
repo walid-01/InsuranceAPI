@@ -63,7 +63,7 @@ namespace InsuranceAPI.Mappers
                     AtFaultPolicyNumber = expertiseReportRequest.ServiceOrder.AtFaultPolicyNumber,
                     VictimInsuranceCode = expertiseReportRequest.ServiceOrder.VictimInsurance.AgencyCode,
                     DamagedParts = expertiseReportRequest.DamagedParts,
-                    expartName =  expertiseReportRequest.ServiceOrder.AssociatedExpert.FirstName+"."+expertiseReportRequest.ServiceOrder.AssociatedExpert
+                    expartName =  expertiseReportRequest.ServiceOrder.AssociatedExpert.FirstName+ " "+expertiseReportRequest.ServiceOrder.AssociatedExpert.FirstName
                 };
             }
             return new ArchiveExpertiseReport
@@ -89,7 +89,7 @@ namespace InsuranceAPI.Mappers
                 AtFaultInsuranceCode = expertiseReportRequest.ServiceOrder.AtFaultInsurance.AgencyCode,
                 AtFaultInsuranceAddress = expertiseReportRequest.ServiceOrder.AtFaultInsurance.Address,
                 DamagedParts = expertiseReportRequest.DamagedParts,
-                expartName =  expertiseReportRequest.ServiceOrder.AssociatedExpert.FirstName+"."+expertiseReportRequest.ServiceOrder.AssociatedExpert
+                expartName =  expertiseReportRequest.ServiceOrder.AssociatedExpert.FirstName+ " "+expertiseReportRequest.ServiceOrder.AssociatedExpert.FirstName
             };
         }
 

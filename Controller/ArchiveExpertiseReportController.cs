@@ -44,7 +44,7 @@ namespace InsuranceAPI.Controller
             try
             {
                 ArchiveExpertiseReport requestExpertiseReport = expertiseReportRequest.FromArchiveExpertiseReportCreateRequestDto(
-                    expert.FirstName+"."+expert.LastName
+                    expert.FirstName + "." + expert.LastName
                 );
                 _context.ArchiveExpertiseReport.Add(requestExpertiseReport);
                 await _context.SaveChangesAsync();
@@ -118,27 +118,28 @@ namespace InsuranceAPI.Controller
             }
         }
 
-        // [HttpGet]
-        // [Route("test")]
-        // public async Task<IActionResult> test(int id)
-        // {
-        //     try
-        //     {
-        //         ServiceOrder? serviceOrderResponses = await _context.ServiceOrder
-        //                                            .Include(so => so.AssociatedExpert)
-        //                                            .Include(so => so.VictimInsurance)
-        //                                            .Include(so => so.AtFaultInsurance)
-        //                                            .Include(so => so.ExpertiseReport)
-        //                                            .ThenInclude(er => er.DamagedParts)
-        //                                            .FirstOrDefaultAsync(e=> e.ExpertiseReport.Id== id);
+        [HttpGet]
+        [Route("test")]
+        public async Task<IActionResult> test(int id)
+        {
+            try
+            {
+                ServiceOrder? serviceOrderResponses = await _context.ServiceOrder
+                                                   .Include(so => so.AssociatedExpert)
+                                                   .Include(so => so.VictimInsurance)
+                                                   .Include(so => so.AtFaultInsurance)
+                                                   .Include(so => so.AssociatedExpert)
+                                                   .Include(so => so.ExpertiseReport)
+                                                   .ThenInclude(er => er.DamagedParts)
+                                                   .FirstOrDefaultAsync(e => e.ExpertiseReport.Id == id);
 
-        //         return Ok(serviceOrderResponses.ExpertiseReport.FromExpertiseReportCreateToArchiveRequestDto());
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         return StatusCode(500, ex);
-        //     }
-        // }
+                return Ok(serviceOrderResponses.ExpertiseReport.FromExpertiseReportCreateToArchiveRequestDto());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
 
     }
 }

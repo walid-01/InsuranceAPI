@@ -126,6 +126,7 @@ namespace InsuranceAPI.Controller
                                                    .Include(so => so.AssociatedExpert)
                                                    .Include(so => so.VictimInsurance)
                                                    .Include(so => so.AtFaultInsurance)
+                                                   .Include(so => so.AssociatedExpert)
                                                    .Include(so => so.ExpertiseReport)
                                                    .ThenInclude(er => er.DamagedParts)
                                                    .FirstOrDefaultAsync(e=> e.ExpertiseReport.Id== expertiseReportRequest.ExpertiseReportID);
