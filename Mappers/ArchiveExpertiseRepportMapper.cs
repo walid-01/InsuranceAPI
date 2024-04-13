@@ -1,5 +1,4 @@
 using InsuranceAPI.Dtos.DamagedPartDtos;
-using InsuranceAPI.Dtos.ExpertDtos;
 using InsuranceAPI.Dtos.ExpertiseReportDtos;
 using InsuranceAPI.Models;
 
@@ -31,7 +30,13 @@ namespace InsuranceAPI.Mappers
                 VictimInsuranceCode = expertiseReportRequest.VictimInsuranceCode,
                 AtFaultInsuranceName = expertiseReportRequest.AtFaultInsuranceName,
                 AtFaultInsuranceCode = expertiseReportRequest.AtFaultInsuranceCode,
-                AtFaultInsuranceAddress = expertiseReportRequest.AtFaultInsuranceAddress
+                AtFaultInsuranceAddress = expertiseReportRequest.AtFaultInsuranceAddress,
+                VehicleMakerAndModel = expertiseReportRequest.VehicleMakerAndModel,
+                VehicleLicensePlate = expertiseReportRequest.VehicleLicensePlate,
+                VehicleType = expertiseReportRequest.VehicleType,
+                VehicleSeriesNumber = expertiseReportRequest.VehicleSeriesNumber,
+                VehicleGenre = expertiseReportRequest.VehicleGenre,
+                VehicleWeight = expertiseReportRequest.VehicleWeight,
             };
         }
 
@@ -44,7 +49,7 @@ namespace InsuranceAPI.Mappers
             {
                 return new ArchiveExpertiseReport
                 {
-                    
+
                     Reference = expertiseReportRequest.Reference,
                     Incident = expertiseReportRequest.Incident,
                     IncidentDate = expertiseReportRequest.IncidentDate,
@@ -63,7 +68,14 @@ namespace InsuranceAPI.Mappers
                     AtFaultPolicyNumber = expertiseReportRequest.ServiceOrder.AtFaultPolicyNumber,
                     VictimInsuranceCode = expertiseReportRequest.ServiceOrder.VictimInsurance.AgencyCode,
                     DamagedParts = expertiseReportRequest.DamagedParts,
-                    expartName =  expertiseReportRequest.ServiceOrder.AssociatedExpert.FirstName+ " "+expertiseReportRequest.ServiceOrder.AssociatedExpert.FirstName
+                    expartName = expertiseReportRequest.ServiceOrder.AssociatedExpert.FirstName + "." + expertiseReportRequest.ServiceOrder.AssociatedExpert.FirstName,
+
+                    VehicleMakerAndModel = expertiseReportRequest.ServiceOrder.VehicleMakerAndModel,
+                    VehicleLicensePlate = expertiseReportRequest.ServiceOrder.VehicleLicensePlate,
+                    VehicleType = expertiseReportRequest.ServiceOrder.VehicleType,
+                    VehicleSeriesNumber = expertiseReportRequest.ServiceOrder.VehicleSeriesNumber,
+                    VehicleGenre = expertiseReportRequest.ServiceOrder.VehicleGenre,
+                    VehicleWeight = expertiseReportRequest.ServiceOrder.VehicleWeight,
                 };
             }
             return new ArchiveExpertiseReport
@@ -89,7 +101,13 @@ namespace InsuranceAPI.Mappers
                 AtFaultInsuranceCode = expertiseReportRequest.ServiceOrder.AtFaultInsurance.AgencyCode,
                 AtFaultInsuranceAddress = expertiseReportRequest.ServiceOrder.AtFaultInsurance.Address,
                 DamagedParts = expertiseReportRequest.DamagedParts,
-                expartName =  expertiseReportRequest.ServiceOrder.AssociatedExpert.FirstName+ " "+expertiseReportRequest.ServiceOrder.AssociatedExpert.FirstName
+                expartName = expertiseReportRequest.ServiceOrder.AssociatedExpert.FirstName + "." + expertiseReportRequest.ServiceOrder.AssociatedExpert.FirstName,
+                VehicleMakerAndModel = expertiseReportRequest.ServiceOrder.VehicleMakerAndModel,
+                VehicleLicensePlate = expertiseReportRequest.ServiceOrder.VehicleLicensePlate,
+                VehicleType = expertiseReportRequest.ServiceOrder.VehicleType,
+                VehicleSeriesNumber = expertiseReportRequest.ServiceOrder.VehicleSeriesNumber,
+                VehicleGenre = expertiseReportRequest.ServiceOrder.VehicleGenre,
+                VehicleWeight = expertiseReportRequest.ServiceOrder.VehicleWeight,
             };
         }
 
@@ -149,7 +167,13 @@ namespace InsuranceAPI.Mappers
                 AtFaultPolicyNumber = expertiseReportModel.AtFaultPolicyNumber,
                 VictimInsuranceCode = expertiseReportModel.VictimInsuranceCode,
                 AtFaultInsuranceCode = expertiseReportModel.AtFaultInsuranceCode,
-                AtFaultInsuranceAddress = expertiseReportModel.AtFaultInsuranceAddress
+                AtFaultInsuranceAddress = expertiseReportModel.AtFaultInsuranceAddress,
+                VehicleMakerAndModel= expertiseReportModel.VehicleMakerAndModel,
+                VehicleLicensePlate= expertiseReportModel.VehicleLicensePlate,
+                VehicleType= expertiseReportModel.VehicleType,
+                VehicleSeriesNumber= expertiseReportModel.VehicleSeriesNumber,
+                VehicleGenre= expertiseReportModel.VehicleGenre,
+                VehicleWeight= expertiseReportModel.VehicleWeight,
             };
         }
     }

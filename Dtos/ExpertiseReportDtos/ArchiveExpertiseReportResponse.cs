@@ -32,5 +32,13 @@ namespace InsuranceAPI.Dtos.ExpertiseReportDtos
         public int? AtFaultInsuranceCode { get; set; }
         public String AtFaultInsuranceAddress { get; set; } = String.Empty;
         public List<DamagePartResponse> DamagedParts { get; set; } = new List<DamagePartResponse>();
+
+
+        public required String VehicleMakerAndModel { get; set; }
+        public required String VehicleLicensePlate { get; set; }
+        public required String VehicleType { get; set; }
+        public required String VehicleSeriesNumber { get; set; }
+        public required String VehicleGenre { get; set; }
+        public required int VehicleWeight { get; set; }
     }
 }

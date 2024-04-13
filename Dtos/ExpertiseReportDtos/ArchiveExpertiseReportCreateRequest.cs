@@ -18,15 +18,22 @@ namespace InsuranceAPI.Dtos.ExpertiseReportDtos
         public int Reduction { get; set; }
         public required String VictimFullName { get; set; }
         public required String VictimPolicyNumber { get; set; }
-        public required String VictimInsuranceName { get; set; }= String.Empty;
-        public required String VictimInsuranceAddress { get; set; }= String.Empty;
+        public required String VictimInsuranceName { get; set; } = String.Empty;
+        public required String VictimInsuranceAddress { get; set; } = String.Empty;
         public String? AtFaultFullName { get; set; }
         public String? AtFaultPolicyNumber { get; set; }
-        public String? AtFaultInsuranceName { get; set; }= String.Empty;
-        public String VictimInsuranceInsuranceAddress { get; set; }= String.Empty;
-        public  required int VictimInsuranceCode { get; set; }
-        public  required int ?AtFaultInsuranceCode { get; set; }
-        public String? AtFaultInsuranceAddress { get; set; }= String.Empty;
+        public String? AtFaultInsuranceName { get; set; } = String.Empty;
+        public required int VictimInsuranceCode { get; set; }
+        public required int? AtFaultInsuranceCode { get; set; }
+        public String? AtFaultInsuranceAddress { get; set; } = String.Empty;
         public List<DamagedPartCreateRequest> DamagedParts { get; set; } = new List<DamagedPartCreateRequest>();
+
+        public required String VehicleMakerAndModel { get; set; }
+        public required String VehicleLicensePlate { get; set; }
+        public required String VehicleType { get; set; }
+        public required String VehicleSeriesNumber { get; set; }
+        public required String VehicleGenre { get; set; }
+        public required int VehicleWeight { get; set; }
+
     }
 }
